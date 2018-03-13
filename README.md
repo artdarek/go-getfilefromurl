@@ -23,12 +23,12 @@ import (
 
 func main() {
 
-    fmt.Println("Download started!")
-    err := downloader.Start("/your/target/path/filename.zip", "http://www.domain.com/whatever/filename.zip")
-    if (err == nil) {
+    d := downloader.NewDownloader("http://www.domain.com/whatever/filename.zip", "/your/target/path/filename.zip")
+    err := d.Start()
+    if err == nil {
         fmt.Println("Download finished!")
-    }
-
+    }    
+    
 }
 ```
 

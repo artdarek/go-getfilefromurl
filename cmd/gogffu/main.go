@@ -1,7 +1,6 @@
 package main
 
 import (
-    "fmt"
     "os"
     "github.com/artdarek/go-getfilefromurl/src/printer"
     "github.com/artdarek/go-getfilefromurl/src/downloader"
@@ -9,7 +8,7 @@ import (
 
 func main() {
 
-    if (os.Args == nil || len(os.Args) <= 2) {
+    if os.Args == nil || len(os.Args) <= 2 {
         printer.UsageExample()
         return
     }
@@ -21,10 +20,14 @@ func main() {
 }
 
 func download(url string, targetPath string) {
-    fmt.Println("Download started!")
-    err := downloader.Start(targetPath, url)
-    if (err == nil) {
-        fmt.Println("Download finished!")
+
+    printer.DownloadStarted()
+    printer.DownloadFromTo(url, targetPath)
+
+    d := downloader.NewDownloader(url, targetPath)
+    err := d.Start()
+    if err == nil {
+        printer.DownloadFinished()
     }
 }
 

@@ -7,18 +7,27 @@ import (
 	"path/filepath"
 )
 
+type Downloader struct {
+	Url string
+	TargetFilepath string
+}
+
+func NewDownloader(url string, targetFilepath string) Downloader {
+	return Downloader{url, targetFilepath}
+}
+
 // Download file from given URL
 // and save it under specified path/filename
-func Start(targetFilepath string, url string) error {
+func (d Downloader) Start() error {
 
 	// Create target directory
-	err := createTargetDirectory(targetFilepath)
+	err := createTargetDirectory(d.TargetFilepath)
 	if err != nil  {
 		return err
 	}
 
 	// Get file from URL
-	err = readAndSaveFileFromUrl(targetFilepath, url)
+	err = readAndSaveFileFromUrl(d.TargetFilepath, d.Url)
 	if err != nil  {
 		return err
 	}
